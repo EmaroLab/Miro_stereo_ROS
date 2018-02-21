@@ -2,6 +2,7 @@
 >Repository with ROS packages for implementation of Stereo vision on the MIRO robot. It can be used to generate a Point Cloud using the Stereo cameras of MiRo. Futhur it can be used to visualise the point cloud in the Rviz, while simulating the MiRo movement as it moves in the real world using its Odometry messages. 
 
 ## Quick use :
+
 1. All 4 folders: "miro_pcl", "miro_stereo_adaptor", "miro_urdf_launcher" and "stereo_image_proc" are standalone ROS-packages, hence are to be placed in src folder of catkin workspace.
 2. Do catkin_make
 3. Establish connection with MiRo, verify by :
@@ -16,9 +17,34 @@ $ ./miro_get_odom.py robot=rob01
 ```
 5. Run Miro_stereo_adaptor by using roslaunch:
 ```
-$roslaunch miro_stereo_adaptor subpub.launch left_camera_yaml:=scripts/left.yaml right_camera_yaml:=scripts/right.yaml
+$ roslaunch miro_stereo_adaptor subpub.launch left_camera_yaml:=scripts/left.yaml right_camera_yaml:=scripts/right.yaml
 ```
-6. Run Miro 
+Verify by: 
+```
+$ rostopic echo /yaml/left/camera_info
+$ rostopic echo /stereo/left/camera_info/
+$ rosrun image_view image_view image:=/miro_scaledimage/left/image_raw
+$ rosrun image_view image_view image:=/stereo/left/image_raw
+$ ROS_NAMESPACE=stereo/left rosrun image_proc image_proc
+$ rosrun image_view image_view image:=stereo/left/image_rect_color
+``` 
+6. Run Stereo_image_proc
+`$ roslaunch stereo_image_proc miro_stereo_image_proc.launch`
+Verify by seeinf the Disparity image that pops up and point cloud in Rviz.
+ - Set stereo_parameters in the dynamic rqt_reconfigure by loading the file *miro_stereo_proc_params.yaml* for stereo_image_proc in rqt_reconfigure.
+
+7. Run Miro_urdf_launcher by using roslaunch:
+```
+$!!!! input roslaunch!!!!
+```
+Visualise the Robot model in Rviz.
+8. Run miro_pcl by roslaunch :
+```
+$ roslaunch miro_pcl pcl4miro.launch topic_points2:="/stereo/points2"
+```
+Now can see the output filtered/downsampled/original(/stereo/points2) point clouds as well as the Miro visualised in Rviz. The MiRo can be moved around by GUI above or by touching the touch sensors(see details) on its body to move it, and correspondingly the MiRo in Rviz shall move around in the same way (as per recieved Odometry Message). Also the 3 above point clouds too move around as MiRo moves. Also the pcl_matched_miro Point cloud that shall have given stitched larger point cloud as MiRo moves, can be seen not working well, mostly since the Stereo_overlap region is less, thus lesser matching features. Still, it is implemented and published for furthur experiments
+
+## DETAILED DESCRIPTION:
 
 ### Start working with MiRo
 >To work with MiRo, we need to prepare our workstation for MiRo, via installing the MIRO Developer Kit(MDK) and configuring the installation (ROS and/or Gazebo) for use with MiRo.
@@ -52,13 +78,11 @@ cd ~/mdk/bin/shared/
 ### miro_urdf_launcher
 > A standalone package using URDF file for Miro to visualise it as robot model in Rviz. A corresponding joint state-publisher node has been included as well which correponds to the joints of robot visualised in Rviz, broadcasting various tf like *miro_robot__miro_body__body*,*miro_robot__miro_head__eyelid_lh* etc which all can be seen in Rviz.
  
-> An URDF file has not been provided alongwith the Miro-MDK. The visualisation described on MiRo website in Gazebo is via a given SDF file. Thus a conversion was needed. This was done via the Ros_package [pysdf](http://wiki.ros.org/pysdf)
+> An URDF file has not been provided alongwith the Miro-MDK. The visualisation described on MiRo website in Gazebo is via a given SDF file. Thus a conversion was needed. This was done via a Ros_package!!!!!!!!!!!!!!
 
 #### Run By:
-```
-roslaunch miro_urdf_launcher miro_urdf.launch
-```
-
+` !!input the roslaunch!!`
+ 
 **NOTE: The visualised MIRO in Rviz has not been linked to actual robot. The odometry information from robot will be used furthur to get the *miro_robot__miro_body__body* frame moving around as the robot moves**
 
 ### Using the MiRo Stereo Adaptor
@@ -116,7 +140,7 @@ rosrun image_view image_view image:=stereo/left/image_rect_color
 ```
 
 ### [Stereo_image_proc](http://wiki.ros.org/stereo_image_proc) 
-> Commonly used open source , standalone ROS package. This requires both camera_info and image topics for both the cameras. It publishes the Rectified images, Disparity Image and the Point Cloud. **The messages shall be synchronized, recommended to not use approximate_sync for best performance**. We used the [tutorial](http://wiki.ros.org/stereo_image_proc/Tutorials/ChoosingGoodStereoParameters) for setting best stereo parameters for the package using [dynamic_reconfigure](http://wiki.ros.org/dynamic_reconfigure). The stereo_image_proc node and dynamic_reconfigure can be run separately as described in the package summary. **The best parameters ,according to us,  for the Scaled_images from the Miro_robot have been saved in a .yaml file and made available inside this package. This can be direclty loaded in the rqt_dynamic_reconfigure**. Furthur the output disparity image and rect images can be seen by using **stereo_view node of image_view**. Otherwise a custom launch file was included which launches all above assuming the namespace of the camera/images to be **stereo**. The point cloud can be visualised in Rviz.
+> Commonly used open source , standalone ROS package. This requires both camera_info and image topics for both the cameras. It publishes the Rectified images, Disparity Image and the Point Cloud. **The messages shall be synchronized, recommended to not use approximate_sync for best performance**. We used the [tutorial](http://wiki.ros.org/stereo_image_proc/Tutorials/ChoosingGoodStereoParameters) for setting best stereo parameters for the package using [dynamic_reconfigure](http://wiki.ros.org/dynamic_reconfigure). The stereo_image_proc node and dynamic_reconfigure can be run separately as described in the package summary. **The best parameters ,according to us,  for the Scaled_images from the Miro_robot have been saved in a .yaml file and made available inside this package. This can be direclty loaded in the rqt_reconfigure**. Furthur the output disparity image and rect images can be seen by using **stereo_view node of image_view**. Otherwise a custom launch file was included which launches all above assuming the namespace of the camera/images to be **stereo**. The point cloud can be visualised in Rviz.
 
 #### Run by :
 ```
@@ -146,5 +170,5 @@ roslaunch stereo_image_proc miro_stereo_image_proc.launch
 #### Run by:
 `roslaunch miro_pcl pcl4miro.launch topic_points2:="/stereo/points2"`
 
-The point cloud canbe visualised in Rviz.
+The point clouds can be visualised in Rviz.
  
