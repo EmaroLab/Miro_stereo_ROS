@@ -13,7 +13,7 @@ cd ~/mdk/bin/shared/
 ```
 >We would be using the [platform interface](https://consequential.bitbucket.io/Technical_Interfaces_Platform_Interface.html) of the MiRo in this approach.
 
-#### Pyhton script for getting Odometry messages
+### Pyhton script for getting Odometry messages
 >The platform interface of the MiRo provides the sensor_information of MiRo in form of customized message: **[miro_msgs/platform_sensors]**(miro_msgs/platform_sensors) over topic **platform/sensors**. This also has the Odometry message to be used for the visualsiation of MiRo movement (here done in Rviz). It is considered better to have the messages in [standard form](http://docs.ros.org/api/nav_msgs/html/msg/Odometry.html) *(now available in the new Standard interface of MiRo)*. Thus a python script was made to publish **nav_msgs/Odometry** messages. The same python script was made to control the movement of the MiRo robot so that the touch sensors can be used to control the movement. !!!!!!!. This can be done by creating a message of type: **miro_msgs/platform_control** and publishing over topic **platform/control**. Note that it shall be saved and run inside the *mdk/* directory. **(we furthur recommend to put the file inside the same folder as the example python scripts ~/mdk/bin/shared)**
 
 - **miro_get_odom.py** 
@@ -23,6 +23,12 @@ cd ~/mdk/bin/shared/
   - Publishes over the topic: "/odom/miro".
   - Extracts the touch sensors information and create the corresponding platform_control message.
   - Publishes the platform_control message over topic "miro/rob01/platform/control".
+
+#### Run by : 
+```
+cd ~/mdk/bin/shared/
+./miro_get_odom.py robot=rob01
+```
 
 ### Using the MiRo Stereo Adaptor
 >This is a standalone ROS package that was created exclusively for MiRo stereo vision purpose.It has following executables and corresponding nodes:
@@ -66,7 +72,14 @@ cd ~/mdk/bin/shared/
 ( a launch file has been provided for whole package, takes arguments as the path for .yaml files for left/right camera_info message files **put inside this package**)
 
 `roslaunch miro_subpub subpub.launch left_camera_yaml:=scripts/left.yaml right_camera_yaml:=scripts/right.yaml`
+> Verify by running following commands: 
+```
+rosrun image_view image_view image:=/miro_scaledimage/left/image_raw
+rosrun image_view image_view image:=/stereo/left/image_raw
+ROS_NAMESPACE=stereo/left rosrun image_proc image_proc
+rosrun image_view image_view image:=stereo/left/image_rect_color
+```
 
 ### [Stereo_image_proc](http://wiki.ros.org/stereo_image_proc) 
-> Commonly used open source package . This requires both camera_info and image topics for both the camera. It publishes the Disparity Image and the Point Cloud.
+> Commonly used open source package. This requires both camera_info and image topics for both the cameras. It publishes the Disparity Image and the Point Cloud. **The messages shall be synchronized, recommended to not use approximate_sync for best performance**. We used the tutorial for setting best stereo parameters for the 
 
