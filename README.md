@@ -17,9 +17,9 @@
 
 - **miro_get_odom.py** 
   - Takes argument as the robot Id(rob01 if only 1 MiRo connected)
-  - Subscribes to the topic: "miro/rob01/platform/sensors".
+  - Subscribes to the topic: "/miro/rob01/platform/sensors".
   - Extracts Odometry info.
-  - Publishes over the topic: "odom/miro".
+  - Publishes over the topic: "/odom/miro".
   - Extracts the touch sensors information and create the corresponding platform_control message.
   - Publishes the platform_control message over topic "miro/rob01/platform/control".
 
@@ -45,7 +45,10 @@
    - Publishes the output over "/miro_scaledimage/left/image_raw" and "/miro_scaledimage/right/image_raw"
  - **camera_info_publisher_left and camera_info_publisher_right**
    - Reads from .yaml file for various components of camera_info msg 
-   - Publishes the camera_info message over topic ""/""
+   - Publishes the camera_info message over topic "/yaml/left/camera_info" / "/yaml/right/camera_info"
  - **subpub**
    - Subscribes to "/miro_scaledimage/left/image_raw" and "/miro_scaledimage/right/image_raw"
-   - Add the frame_id and
+   - Add the frame_id and timestamp and re-publishes images over : "/stereo/left/image_raw" and "/stereo/right/image_raw"
+   - Subscribes to "/yaml/left/camera_info" and "/yaml/right/camera_info" 
+   - Add the frame_id and timestamp and re-publishes camera_info messages over : "/stereo/left/camera_info/" and "/stereo/right/camera_info/" 
+   - Subscribes to 
