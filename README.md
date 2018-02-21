@@ -1,6 +1,5 @@
 # Miro_stereo_ROS
->Repository with ROS packages for implementation of Stereo vision on the MIRO robot.
-The package aims to generate a Point Cloud using the Stereo cameras of MiRo. Futhur it can be used to visualise the point cloud in the Rviz, while simulating the MiRo movement as it moves in the real world using its Odometry messages. 
+>Repository with ROS packages for implementation of Stereo vision on the MIRO robot. It can be used to generate a Point Cloud using the Stereo cameras of MiRo. Futhur it can be used to visualise the point cloud in the Rviz, while simulating the MiRo movement as it moves in the real world using its Odometry messages. 
 
 ### Start working with MiRo
 >To work with MiRo, we need to prepare our workstation for MiRo, via installing the MIRO Developer Kit(MDK) and configuring the installation (ROS and/or Gazebo) for use with MiRo.
@@ -14,7 +13,13 @@ The package aims to generate a Point Cloud using the Stereo cameras of MiRo. Fut
 >We would be using the [platform interface](https://consequential.bitbucket.io/Technical_Interfaces_Platform_Interface.html) of the MiRo in this approach.
 
 #### Pyhton script for getting Odometry messages
->The platform interface of the MiRo provides the sensor_information of MiRo in form of customized message: [miro_msgs/platform_sensors](miro_msgs/platform_sensors). This also has the Odometry message to be used for the visualsiation of MiRo movement (here done in Rviz). 
+>The platform interface of the MiRo provides the sensor_information of MiRo in form of customized message: **[miro_msgs/platform_sensors]**(miro_msgs/platform_sensors) over topic **platform/sensors**. This also has the Odometry message to be used for the visualsiation of MiRo movement (here done in Rviz). It is considered better to have the messages in [standard form](http://docs.ros.org/api/nav_msgs/html/msg/Odometry.html) *(now available in the new Standard interface of MiRo)*. Thus a python script was made to publish **nav_msgs/Odometry** messages. The same python script was made to control the movement of the MiRo robot so that the touch sensors can be used to control the movement. !!!!!!!. This can be done by creating a message of type: **miro_msgs/platform_control** and publishing over topic **platform/control**.
+- **odom**
+  - Subscribes to the topic: "miro/rob01/platform/sensors".
+  - Extracts Odometry info.
+  - Publishes over the topic: "odom/miro".
+  - Extracts the touch sensors information and create the corresponding platform_control message.
+  - Publishes the platform_control message over topic "miro/rob01/platform/control".
 
 ### Using the MiRo Stereo Adaptor
 >This is a standalone ROS package that was created exclusively for MiRo stereo vision purpose.It has following executables and corresponding nodes:
@@ -28,7 +33,7 @@ The package aims to generate a Point Cloud using the Stereo cameras of MiRo. Fut
 
 >The camera_info message components involve intrinsic and extrinsic parts. The intrinsic parts are related to single camera and can be found from [monocular calibration](). However the extrinsic parts are related to stereo camera exclusively, and for that we need proper stereo_calibration to be done and shall verify the rectified image. We used the rospackage: [Camera_calibration](http://wiki.ros.org/camera_calibration) and followed the corresponding [tutorial](http://wiki.ros.org/camera_calibration/Tutorials/StereoCalibration) for stereo calibration. **It shall be kept in mind that we need to get the camera_info message parameters for the Scaled_MiRo images since that would used for furthur processing.** As the outpout we will get yaml files for left and right camera_info messages. This can be used to publish the camera_info message over a topic.
 
->Furthur we need to synchronize all data. All the MiRo Messages are produced without a [header](http://docs.ros.org/lunar/api/std_msgs/html/msg/Header.html):frame_id, which is very important for stereo processing packages and visualisation packages/softwares. Similarily the time_stamps of images can be different So, before Stereo-processing, we take all incoming messages(Scaled images, Camera_info and Odomerty message) 
+>Furthur we need to synchronize all data. All the MiRo Messages are produced without a [header](http://docs.ros.org/lunar/api/std_msgs/html/msg/Header.html):frame_id, which is very important for stereo processing packages and visualisation packages/softwares. Similarily the time_stamps of images can be different So, before Stereo-processing, we take all incoming messages(Scaled images, Camera_info and Odomerty message).  
 
 >Thus executables/nodes: 
  - **scaleimage_left and scaleimage_right**
