@@ -1,0 +1,415 @@
+<?xml version="1.0" ?>
+<robot name="miro_robot">
+  <joint name="miro_robot__body_neck" type="revolute">
+    <parent link="miro_robot__miro_body__body"/>
+    <child link="miro_robot__miro_neck__neck"/>
+<!--   <origin rpy="0  0  0" xyz="0  0  0"/> -->
+    <origin rpy="0  0  0" xyz="-0.002 0 0"/>
+    <axis xyz="0  1  0"/>
+    <limit effort="0.0" lower="0.0" upper="1.57" velocity="0.0"/>
+  </joint>
+  <joint name="miro_robot__neck_gmbl" type="revolute">
+    <parent link="miro_robot__miro_neck__neck"/>
+    <child link="miro_robot__miro_gmbl__gmbl"/>
+<!--    <origin rpy="0  0  0" xyz="0.002  0    -0.081"/> -->
+    <origin rpy="0  0  0" xyz="-0.002 0 0"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0.0" lower="-1.57" upper="1.57" velocity="0.0"/>
+  </joint>
+  <joint name="miro_robot__gmbl_head" type="revolute">
+    <parent link="miro_robot__miro_gmbl__gmbl"/>
+    <child link="miro_robot__miro_head__head"/>
+<!--    <origin rpy="0  0  0" xyz="0.002  0    -0.201"/> -->
+    <origin rpy="0  0  0" xyz="-0.002 0 0"/>
+    <axis xyz="0  1  0"/>
+    <limit effort="0.0" lower="-1.57" upper="1.57" velocity="0.0"/>
+  </joint>
+  <joint name="miro_robot__miro_body__body_wheel_lh" type="fixed">
+    <parent link="miro_robot__miro_body__body"/>
+    <child link="miro_robot__miro_body__wheel_lh"/>
+    <origin rpy="0  0  0" xyz="0.00063  0.07779  0.04483"/>
+    <axis xyz="0       0.99965  0.02618"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="miro_robot__miro_body__body_wheel_rh" type="fixed">
+    <parent link="miro_robot__miro_body__body"/>
+    <child link="miro_robot__miro_body__wheel_rh"/>
+    <origin rpy="0  0  0" xyz="0.00063 -0.07779  0.04483"/>
+    <axis xyz="0       0.99965 -0.02618"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <link name="miro_robot__miro_body__body">
+    <inertial>
+      <mass value="1.570796"/>
+      <origin rpy="0  0  0" xyz="-0.06  0    0.05"/>
+      <inertia ixx="0.00523599" ixy="0.0" ixz="0.0" iyy="0.00523599" iyz="0.0" izz="0.00785398"/>
+    </inertial>
+    <collision name="miro_robot__miro_body__collision_valance">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/valance_collision.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <collision name="miro_robot__miro_body__collision_skirt_lh">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/skirt_lh_collision.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <collision name="miro_robot__miro_body__collision_skirt_rh">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/skirt_rh_collision.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <collision name="miro_robot__miro_body__collision_body_shell">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/body_shell_collision.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <collision name="miro_robot__miro_body__collision_slider">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/slider_collision.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <visual name="miro_robot__miro_body__visual_valance">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/valance.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_body__visual_skirt_lh">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/skirt_lh.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_body__visual_skirt_rh">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/skirt_rh.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_body__visual_cliff_sensor_L_asm">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/cliff_sensor_L_asm.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_body__visual_cliff_sensor_R_asm">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/cliff_sensor_R_asm.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_body__visual_light_sensor_holder_asm_L">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/light_sensor_holder_asm_L.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_body__visual_light_sensor_holder_asm_R">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/light_sensor_holder_asm_R.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_body__visual_neck_mount">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/neck_mount.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_body__visual_body_shell">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/body_shell.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_body__visual_slider">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/slider.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_body__visual_battery_box">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/battery_box.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_body__visual_battery_box_cover">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/battery_box_cover.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="miro_robot__miro_body__wheel_lh">
+    <inertial>
+      <mass value="0.134041"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.00014298" ixy="0.0" ixz="0.0" iyy="0.00014298" iyz="0.0" izz="0.00014298"/>
+    </inertial>
+    <collision name="miro_robot__miro_body__collision_wheel_tyre_lh">
+      <origin rpy="0  0  0" xyz="-0.00063 -0.07779 -0.04483"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/wheel_tyre_lh_collision.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <visual name="miro_robot__miro_body__visual_wheel_tyre_lh">
+      <origin rpy="0  0  0" xyz="-0.00063 -0.07779 -0.04483"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/wheel_tyre_lh.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_body__visual_wheel_rim_lh">
+      <origin rpy="0  0  0" xyz="-0.00063 -0.07779 -0.04483"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/wheel_rim_lh.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="miro_robot__miro_body__wheel_rh">
+    <inertial>
+      <mass value="0.134041"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.00014298" ixy="0.0" ixz="0.0" iyy="0.00014298" iyz="0.0" izz="0.00014298"/>
+    </inertial>
+    <collision name="miro_robot__miro_body__collision_wheel_tyre_rh">
+      <origin rpy="0  0  0" xyz="-0.00063  0.07779 -0.04483"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/wheel_tyre_rh_collision.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <visual name="miro_robot__miro_body__visual_wheel_tyre_rh">
+      <origin rpy="0  0  0" xyz="-0.00063  0.07779 -0.04483"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/wheel_tyre_rh.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_body__visual_wheel_rim_rh">
+      <origin rpy="0  0  0" xyz="-0.00063  0.07779 -0.04483"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/wheel_rim_rh.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="miro_robot__miro_neck__neck">
+    <inertial>
+      <mass value="0.075398"/>
+      <origin rpy="0  0  0" xyz="-0.002    0       0.14099"/> 
+      <inertia ixx="0.00009802" ixy="0.0" ixz="0.0" iyy="0.00009802" iyz="0.0" izz="0.00001508"/>
+    </inertial>
+    <visual name="miro_robot__miro_neck__visual_neck_member_main">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/neck_member_main.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_neck__visual_neck_mount_upper_pin">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/neck_mount_upper_pin.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_neck__visual_neck_mount_lower_pin">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/neck_mount_lower_pin.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="miro_robot__miro_gmbl__gmbl">
+    <inertial>
+      <mass value="0.039270"/>
+      <origin rpy="0  0  0" xyz="-0.002  0     0.171"/>
+      <inertia ixx="0.00002487" ixy="0.0" ixz="0.0" iyy="0.00002487" iyz="0.0" izz="0.00004909"/>
+    </inertial>
+    <visual name="miro_robot__miro_gmbl__visual_collar">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/collar.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="miro_robot__miro_head__head_eyelid_lh" type="revolute">
+    <parent link="miro_robot__miro_head__head"/>
+    <child link="miro_robot__miro_head__eyelid_lh"/>
+<!--    <origin rpy="0  0  0" xyz="0.031  0.032  0.051"/> -->
+    <origin rpy="0  0  0" xyz="0.029 0.032 0.252"/>
+    <axis xyz="-0.675   0.675  -0.2978"/>
+    <limit effort="0.0" lower="-1.57" upper="1.57" velocity="0.0"/>
+  </joint>
+  <joint name="miro_robot__miro_head__head_eyelid_rh" type="revolute">
+    <parent link="miro_robot__miro_head__head"/>
+    <child link="miro_robot__miro_head__eyelid_rh"/>
+<!--    <origin rpy="0  0  0" xyz="0.031 -0.032  0.051"/> -->
+    <origin rpy="0  0  0" xyz="0.029 -0.032 0.252"/>
+
+    <axis xyz="0.675   0.675   0.2978"/>
+    <limit effort="0.0" lower="-1.57" upper="1.57" velocity="0.0"/>
+  </joint>
+  <joint name="miro_robot__miro_head__head_ear_lh" type="revolute">
+    <parent link="miro_robot__miro_head__head"/>
+    <child link="miro_robot__miro_head__ear_lh"/>
+<!--    <origin rpy="0  0  0" xyz="-0.0417  0.0474  0.0763"/> -->
+    <origin rpy="0  0  0" xyz="-0.0437 0.0474 0.2773"/>
+    <axis xyz="-0.57299  0.4344   0.6949"/>
+    <limit effort="0.0" lower="-1.57" upper="1.57" velocity="0.0"/>
+  </joint>
+  <joint name="miro_robot__miro_head__head_ear_rh" type="revolute">
+    <parent link="miro_robot__miro_head__head"/>
+    <child link="miro_robot__miro_head__ear_rh"/>
+<!--    <origin rpy="0  0  0" xyz="-0.0417 -0.0474  0.0763"/> -->
+    <origin rpy="0  0  0" xyz="-0.0437 -0.0474 0.2773"/>
+
+    <axis xyz="-0.57299 -0.4344   0.6949"/>
+    <limit effort="0.0" lower="-1.57" upper="1.57" velocity="0.0"/>
+  </joint>
+  <link name="miro_robot__miro_head__head">
+    <inertial>
+      <mass value="0.261799"/>
+      <origin rpy="0  0  0" xyz="-0.002  0     0.221"/>
+      <inertia ixx="0.00043633" ixy="0.0" ixz="0.0" iyy="0.00043633" iyz="0.0" izz="0.00043633"/>
+    </inertial>
+    <collision name="miro_robot__miro_head__collision_head_lower">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/head_lower_collision.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <collision name="miro_robot__miro_head__collision_head_upper">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/head_upper_collision.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <collision name="miro_robot__miro_head__collision_nose">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/nose_collision.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <visual name="miro_robot__miro_head__visual_head_lower">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/head_lower.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_head__visual_head_upper">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/head_upper.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_head__visual_eyelid_lower_lh">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/eyelid_lower_lh.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_head__visual_eyelid_lower_rh">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/eyelid_lower_rh.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_head__visual_nose">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/nose.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_head__visual_eyeball_lh">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/eyeball_lh.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_head__visual_eyeball_rh">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/eyeball_rh.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_head__visual_iris_lh">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/iris_lh.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+    <visual name="miro_robot__miro_head__visual_iris_rh">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/iris_rh.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="miro_robot__miro_head__eyelid_lh">
+    <inertial>
+      <mass value="0.016755"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.00000447" ixy="0.0" ixz="0.0" iyy="0.00000447" iyz="0.0" izz="0.00000447"/>
+    </inertial>
+    <visual name="miro_robot__miro_head__visual_eyelid_lh">
+      <origin rpy="0  0  0" xyz="-0.029 -0.032 -0.252"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/eyelid_lh.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="miro_robot__miro_head__eyelid_rh">
+    <inertial>
+      <mass value="0.016755"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.00000447" ixy="0.0" ixz="0.0" iyy="0.00000447" iyz="0.0" izz="0.00000447"/>
+    </inertial>
+    <visual name="miro_robot__miro_head__visual_eyelid_rh">
+      <origin rpy="0  0  0" xyz="-0.029  0.032 -0.252"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/eyelid_rh.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="miro_robot__miro_head__ear_lh">
+    <inertial>
+      <mass value="0.056549"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.00003393" ixy="0.0" ixz="0.0" iyy="0.00003393" iyz="0.0" izz="0.00003393"/>
+    </inertial>
+    <collision name="miro_robot__miro_head__collision_ear_lh">
+      <origin rpy="0  0  0" xyz="0.0437 -0.0474 -0.2773"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/ear_lh_collision.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <visual name="miro_robot__miro_head__visual_ear_lh">
+      <origin rpy="0  0  0" xyz="0.0437 -0.0474 -0.2773"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/ear_lh.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="miro_robot__miro_head__ear_rh">
+    <inertial>
+      <mass value="0.056549"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.00003393" ixy="0.0" ixz="0.0" iyy="0.00003393" iyz="0.0" izz="0.00003393"/>
+    </inertial>
+    <collision name="miro_robot__miro_head__collision_ear_rh">
+      <origin rpy="0  0  0" xyz="0.0437  0.0474 -0.2773"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/ear_rh_collision.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <visual name="miro_robot__miro_head__visual_ear_rh">
+      <origin rpy="0  0  0" xyz="0.0437  0.0474 -0.2773"/>
+      <geometry>
+        <mesh filename="package://miro_urdf_launcher/miro_model/meshes/ear_rh.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+</robot>
