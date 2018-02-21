@@ -37,7 +37,7 @@
 
 >Furthur we need to synchronize all data. All the MiRo Messages are produced without a [header](http://docs.ros.org/lunar/api/std_msgs/html/msg/Header.html):frame_id, which is very important for stereo processing packages and visualisation packages/softwares. Similarily the time_stamps of images are not necessarily same. So, before Stereo-processing, we take all incoming messages(Scaled images, Camera_info and Odomerty messages) and republish them by giving the frame_id **stereo** to images and camera_info messages and same time stamp to all of them *(we copy the time stamp of the odometry message to distribute them over all others, thus giving priority to the Odometry. Same can also be done by giving the priority to one of the left/right image. Otherwise we can generate new time stamp corresponding to current time.)*
 
-> For visualisation
+> For visualisation we also need to broadcast 
 >Thus executables/nodes: 
  - **scaleimage_left and scaleimage_right**
    - Subcribes to “miro/rob01/platform/caml” and “miro/rob01/platform/camr”
@@ -51,4 +51,11 @@
    - Add the frame_id and timestamp and re-publishes images over : "/stereo/left/image_raw" and "/stereo/right/image_raw"
    - Subscribes to "/yaml/left/camera_info" and "/yaml/right/camera_info" 
    - Add the frame_id and timestamp and re-publishes camera_info messages over : "/stereo/left/camera_info/" and "/stereo/right/camera_info/" 
-   - Subscribes to 
+   - Subscribes to "/odom/miro", copies the time stamp to be given to other topics.
+   - Read the odometry data, set the values for tf accordingly between global frame *map* and *miro_robot__miro_body__body* frame and broadcast it.
+   - Also broadcast a static frame between the *stereo* frame and *miro_robot__miro_head__eyelid_lh* (as per the used stereo-processing package)
+   - Re-publish the odometry message over : "/stereo/odom" topic.
+**NOTE:
+  1. All republished topics are in "stereo" namespace. This is corresponding to the requirement of stereo_processing packages that need them in same namespace.
+  2. As we would see ahead, the stereo_processing package used assumes the point cloud produced to be relative to a frame at left eye camera, (X Right, Y Down, Z out). 
+
