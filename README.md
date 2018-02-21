@@ -30,6 +30,16 @@ cd ~/mdk/bin/shared/
 ./miro_get_odom.py robot=rob01
 ```
 
+### miro_urdf_launcher
+> A standalone package using URDF file for Miro to visualise it as robot model in Rviz. A corresponding joint state-publisher node has been included as well which correponds to the joints of robot visualised in Rviz, broadcasting various tf like *miro_robot__miro_body__body*,*miro_robot__miro_head__eyelid_lh* etc which all can be seen in Rviz.
+ 
+> An URDF file has not been provided alongwith the Miro-MDK. The visualisation described on MiRo website in Gazebo is via a given SDF file. Thus a conversion was needed. This was done via a Ros_package!!!!!!!!!!!!!!
+
+#### Run By:
+` !!input the roslaunch!!`
+ 
+**NOTE: The visualised MIRO in Rviz has not been linked to actual robot. The odometry information from robot will be used furthur to get the *miro_robot__miro_body__body* frame moving around as the robot moves**
+
 ### Using the MiRo Stereo Adaptor
 >This is a standalone ROS package that was created exclusively for MiRo stereo vision purpose.It has following executables and corresponding nodes:
 - **scaleimage_left.cpp**
@@ -99,7 +109,7 @@ roslaunch stereo_image_proc miro_stereo_image_proc.launch
 
 ###  miro_pcl
 
->  Another standalone package that is a collection of nodes implementiong PCL_filtering, PCL_downsampling and PCL_matching from [pcl](http://wiki.ros.org/pcl) Rospackage (Point Cloud Library). *Due to very narrow stereo_overlap leading to a narrow point cloud, the matching node does not work in desired way*. A launch file has been provided which takes in an argument as the point_cloud topic. The nodes work in sequence: 
+>  Another standalone package that is a collection of nodes implementiong PCL_filtering, PCL_downsampling and PCL_matching from [pcl](http://wiki.ros.org/pcl) Rospackage (Point Cloud Library). *Due to very narrow stereo_overlap leading to a narrow point cloud, the matching node does not work in desired way. Still it has been publihsed for furthur experiments*. A launch file has been provided which takes in an argument as the point_cloud topic. The nodes work in sequence: 
 - pcl_filter_miro.cpp  
   - Takes in the argument as the point cloud topic name
   - Subscribes to it, applying pcl_filtering and publishes the output as "pcl_filtered_miro"
@@ -112,4 +122,6 @@ roslaunch stereo_image_proc miro_stereo_image_proc.launch
 
 #### Run by:
 `roslaunch miro_pcl pcl4miro.launch topic_points2:="/stereo/points2"`
+
 The point cloud canbe visualised in Rviz.
+ 
