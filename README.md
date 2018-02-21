@@ -7,9 +7,10 @@
 - Finally by using MiRo-APP, we can connect to MiRo via BLUETOOTH from a Smartphone, and then can make MiRo connect to the desired wifi network on which our workstation would be connected. Furthur we need to Commission the MiRo for use, following these [steps](https://consequential.bitbucket.io/Developer_Preparation_Commission_MIRO.html). After this we also need to set the *MODE* to *Normal* in MiRo-APP and toggle the *BRIDGE* on. 
 - If everything goes as desired, once roscore is run in the ROS Environment in our workstation we finally have a Rosnode running which corresponds to various interfaces of MiRo:Standard(new), Platform, Core and Bridge. We will be able to see various *Topics* related to MiRo in `rostopic list`
 - We can verify this by running the example python script in the mdk directory created while preparing the workstation.
-  - `cd ~/mdk/bin/shared/`
-  - `./miro_ros_client_gui.py robot=rob01`
-
+   ```
+    cd ~/mdk/bin/shared/
+   ./miro_ros_client_gui.py robot=rob01`
+   ```
 >We would be using the [platform interface](https://consequential.bitbucket.io/Technical_Interfaces_Platform_Interface.html) of the MiRo in this approach.
 
 #### Pyhton script for getting Odometry messages
@@ -44,6 +45,7 @@
    - resize/rescale the images 
    - Publishes the output over "/miro_scaledimage/left/image_raw" and "/miro_scaledimage/right/image_raw"
  - **camera_info_publisher_left and camera_info_publisher_right**
+   - Takes argument as the path to the .yaml file
    - Reads from .yaml file for various components of camera_info msg 
    - Publishes the camera_info message over topic "/yaml/left/camera_info" / "/yaml/right/camera_info"
  - **subpub**
@@ -56,6 +58,6 @@
    - Also broadcast a static frame between the *stereo* frame and *miro_robot__miro_head__eyelid_lh* (as per the used stereo-processing package)
    - Re-publish the odometry message over : "/stereo/odom" topic.
 **NOTE**:
-  1. **All republished topics are in "stereo" namespace. This is corresponding to the requirement of stereo_processing packages that need them in same namespace.
-  2. As we would see ahead, the stereo_processing package used assumes the point cloud produced to be relative to a frame at left eye camera, (X Right, Y Down, Z out).** 
-
+  1. **All republished topics are in "stereo" namespace. This is corresponding to the requirement of stereo_processing packages that need them in same namespace.**
+  2. **As we would see ahead, the stereo_processing package used assumes the point cloud produced to be relative to a frame at left eye camera, (X Right, Y Down, Z out).** 
+ > Run by : 
