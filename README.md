@@ -1,6 +1,21 @@
 # Miro_stereo_ROS
 >Repository with ROS packages for implementation of Stereo vision on the MIRO robot. It can be used to generate a Point Cloud using the Stereo cameras of MiRo. Futhur it can be used to visualise the point cloud in the Rviz, while simulating the MiRo movement as it moves in the real world using its Odometry messages. 
 
+## Quick use :
+1. All 4 folders: "miro_pcl", "miro_subpub", "miro_urdf_launcher" and "stereo_image_proc" are standalone ROS-packages, hence are to be placed in src folder of catkin workspace.
+2. Do catkin_make
+3. Establish connection with MiRo, verify by :
+```
+cd ~/mdk/bin/shared/
+./miro_ros_client_gui.py robot=rob01`
+```
+4. Run Pyhton script for getting Odometry messages from inside same directory as above:
+```
+cd ~/mdk/bin/shared/
+./miro_get_odom.py robot=rob01
+```
+5. 
+
 ### Start working with MiRo
 >To work with MiRo, we need to prepare our workstation for MiRo, via installing the MIRO Developer Kit(MDK) and configuring the installation (ROS and/or Gazebo) for use with MiRo.
 - The simple steps to be followed for above are listed on the [MiRo website](https://consequential.bitbucket.io/Developer_Preparation_Prepare_workstation.html).
