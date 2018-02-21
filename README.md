@@ -99,7 +99,7 @@ roslaunch stereo_image_proc miro_stereo_image_proc.launch
 
 ###  miro_pcl
 
->  Another standalone package that is a collection of nodes implementiong PCL_filtering, PCL_downsampling and PCL_matching from [pcl](http://wiki.ros.org/pcl) Rospackage (Point Cloud Library). *Due to very narrow stereo_overlap leading to a narrow point cloud, the matching node does not work in desired way*. The nodes work in sequence: 
+>  Another standalone package that is a collection of nodes implementiong PCL_filtering, PCL_downsampling and PCL_matching from [pcl](http://wiki.ros.org/pcl) Rospackage (Point Cloud Library). *Due to very narrow stereo_overlap leading to a narrow point cloud, the matching node does not work in desired way*. A launch file has been provided which takes in an argument as the point_cloud topic. The nodes work in sequence: 
 - pcl_filter_miro.cpp  
   - Takes in the argument as the point cloud topic name
   - Subscribes to it, applying pcl_filtering and publishes the output as "pcl_filtered_miro"
@@ -109,3 +109,7 @@ roslaunch stereo_image_proc miro_stereo_image_proc.launch
 - pcl_matching_miro.cpp
   - Subscribes to "pcl_downsampled"
   - It stitches point clouds using basic registration from pcl, publishing the output as "pcl_matched_miro"  
+
+#### Run by:
+`roslaunch miro_pcl pcl4miro.launch topic_points2:="/stereo/points2"`
+The point cloud canbe visualised in Rviz.
