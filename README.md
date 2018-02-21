@@ -83,9 +83,9 @@ rosrun image_view image_view image:=stereo/left/image_rect_color
 ```
 
 ### [Stereo_image_proc](http://wiki.ros.org/stereo_image_proc) 
-> Commonly used open source package. This requires both camera_info and image topics for both the cameras. It publishes the Rectified images, Disparity Image and the Point Cloud. **The messages shall be synchronized, recommended to not use approximate_sync for best performance**. We used the [tutorial](http://wiki.ros.org/stereo_image_proc/Tutorials/ChoosingGoodStereoParameters) for setting best stereo parameters for the package using [dynamic_reconfigure](http://wiki.ros.org/dynamic_reconfigure). The stereo_image_proc node and dynamic_reconfigure can be run separately as described in the package summary. ****Furthur the output disparity image and rect images can be seen by using **stereo_view node of image_view**. Otherwise a custom launch file was included which launches all above assuming the namespace of the camera/images to be **stereo**.
+> Commonly used open source , standalone ROS package. This requires both camera_info and image topics for both the cameras. It publishes the Rectified images, Disparity Image and the Point Cloud. **The messages shall be synchronized, recommended to not use approximate_sync for best performance**. We used the [tutorial](http://wiki.ros.org/stereo_image_proc/Tutorials/ChoosingGoodStereoParameters) for setting best stereo parameters for the package using [dynamic_reconfigure](http://wiki.ros.org/dynamic_reconfigure). The stereo_image_proc node and dynamic_reconfigure can be run separately as described in the package summary. **The best parameters ,according to us,  for the Scaled_images from the Miro_robot have been saved in a .yaml file and made available inside this package. This can be direclty loaded in the rqt_dynamic_reconfigure**. Furthur the output disparity image and rect images can be seen by using **stereo_view node of image_view**. Otherwise a custom launch file was included which launches all above assuming the namespace of the camera/images to be **stereo**. The point cloud can be visualised in Rviz.
 
-####Run by :
+#### Run by :
 ```
 ROS_NAMESPACE=stereo rosrun stereo_image_proc stereo_image_proc
 rosrun image_view stereo_view stereo:=/stereo image:=image_rect_color
@@ -97,5 +97,15 @@ or
 roslaunch stereo_image_proc miro_stereo_image_proc.launch
 ```
 
+###  miro_pcl
 
-
+>  Another standalone package that is a collection of nodes implementiong PCL_filtering, PCL_downsampling and PCL_matching from [pcl](http://wiki.ros.org/pcl) Rospackage (Point Cloud Library). *Due to very narrow stereo_overlap leading to a narrow point cloud, the matching node does not work in desired way*. The nodes work in sequence: 
+- pcl_filter_miro.cpp  
+  - Takes in the argument as the point cloud topic name
+  - Subscribes to it, applying pcl_filtering and publishes the output as "pcl_filtered_miro"
+- pcl_downsampling.cpp
+  - Subscribes to "pcl_filtered_miro"
+  - Applies pcl_downsampling to point cloud and publishes the output as "pcl_downsampled"
+- pcl_matching_miro.cpp
+  - Subscribes to "pcl_downsampled"
+  - It stitches point clouds using basic registration from pcl, publishing the output as "pcl_matched_miro"  
