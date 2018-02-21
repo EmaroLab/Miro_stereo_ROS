@@ -13,8 +13,10 @@
 >We would be using the [platform interface](https://consequential.bitbucket.io/Technical_Interfaces_Platform_Interface.html) of the MiRo in this approach.
 
 #### Pyhton script for getting Odometry messages
->The platform interface of the MiRo provides the sensor_information of MiRo in form of customized message: **[miro_msgs/platform_sensors]**(miro_msgs/platform_sensors) over topic **platform/sensors**. This also has the Odometry message to be used for the visualsiation of MiRo movement (here done in Rviz). It is considered better to have the messages in [standard form](http://docs.ros.org/api/nav_msgs/html/msg/Odometry.html) *(now available in the new Standard interface of MiRo)*. Thus a python script was made to publish **nav_msgs/Odometry** messages. The same python script was made to control the movement of the MiRo robot so that the touch sensors can be used to control the movement. !!!!!!!. This can be done by creating a message of type: **miro_msgs/platform_control** and publishing over topic **platform/control**.
-- **odom**
+>The platform interface of the MiRo provides the sensor_information of MiRo in form of customized message: **[miro_msgs/platform_sensors]**(miro_msgs/platform_sensors) over topic **platform/sensors**. This also has the Odometry message to be used for the visualsiation of MiRo movement (here done in Rviz). It is considered better to have the messages in [standard form](http://docs.ros.org/api/nav_msgs/html/msg/Odometry.html) *(now available in the new Standard interface of MiRo)*. Thus a python script was made to publish **nav_msgs/Odometry** messages. The same python script was made to control the movement of the MiRo robot so that the touch sensors can be used to control the movement. !!!!!!!. This can be done by creating a message of type: **miro_msgs/platform_control** and publishing over topic **platform/control**. Note that it shall be saved and run inside the *mdk/* directory. **(we furthur recommend to put the file inside the same folder as the example python scripts ~/mdk/bin/shared)**
+
+- **miro_get_odom.py** 
+  - Takes argument as the robot Id(rob01 if only 1 MiRo connected)
   - Subscribes to the topic: "miro/rob01/platform/sensors".
   - Extracts Odometry info.
   - Publishes over the topic: "odom/miro".
@@ -31,10 +33,11 @@
 
 > The MiRo-MDK publishes 2 images form its left and right eye cameras, over topics “miro/rob01/platform/caml” and “miro/rob01/platform/camr”. But it does not publishes the much required [Camera_info](http://docs.ros.org/api/sensor_msgs/html/msg/CameraInfo.html) messages for these. So we had to do the calibration to find the Camera parameters (saved as .yaml file). Before doing this, the images need to be resized/rescaled before calibration, since for stereo algorithm analysis we need only the overlap part of the 2 images(30 degrees overlap for MiRo). We have used Open_cv(CV_bridge for ROS) tools for the resizing/rescaling.
 
->The camera_info message components involve intrinsic and extrinsic parts. The intrinsic parts are related to single camera and can be found from [monocular calibration](). However the extrinsic parts are related to stereo camera exclusively, and for that we need proper stereo_calibration to be done and shall verify the rectified image. We used the rospackage: [Camera_calibration](http://wiki.ros.org/camera_calibration) and followed the corresponding [tutorial](http://wiki.ros.org/camera_calibration/Tutorials/StereoCalibration) for stereo calibration. **It shall be kept in mind that we need to get the camera_info message parameters for the Scaled_MiRo images since that would used for furthur processing.** As the outpout we will get yaml files for left and right camera_info messages. This can be used to publish the camera_info message over a topic.
+>The camera_info message components involve intrinsic and extrinsic parts. The intrinsic parts are related to single camera and can be found from [monocular calibration](http://wiki.ros.org/camera_calibration/Tutorials/MonocularCalibration). However the extrinsic parts are related to stereo camera exclusively, and for that we need proper stereo_calibration to be done and shall verify the rectified image. We used the rospackage: [Camera_calibration](http://wiki.ros.org/camera_calibration) and followed the corresponding [tutorial](http://wiki.ros.org/camera_calibration/Tutorials/StereoCalibration) for stereo calibration. **It shall be kept in mind that we need to get the camera_info message parameters for the Scaled_MiRo images since that would used for furthur processing.** As the outpout we will get yaml files for left and right camera_info messages. This can be used to publish the camera_info message over a topic.
 
->Furthur we need to synchronize all data. All the MiRo Messages are produced without a [header](http://docs.ros.org/lunar/api/std_msgs/html/msg/Header.html):frame_id, which is very important for stereo processing packages and visualisation packages/softwares. Similarily the time_stamps of images can be different So, before Stereo-processing, we take all incoming messages(Scaled images, Camera_info and Odomerty message).  
+>Furthur we need to synchronize all data. All the MiRo Messages are produced without a [header](http://docs.ros.org/lunar/api/std_msgs/html/msg/Header.html):frame_id, which is very important for stereo processing packages and visualisation packages/softwares. Similarily the time_stamps of images are not necessarily same. So, before Stereo-processing, we take all incoming messages(Scaled images, Camera_info and Odomerty messages) and republish them by giving the frame_id **stereo** to images and camera_info messages and same time stamp to all of them *(we copy the time stamp of the odometry message to distribute them over all others, thus giving priority to the Odometry. Same can also be done by giving the priority to one of the left/right image. Otherwise we can generate new time stamp corresponding to current time.)*
 
+> For visualisation
 >Thus executables/nodes: 
  - **scaleimage_left and scaleimage_right**
    - Subcribes to “miro/rob01/platform/caml” and “miro/rob01/platform/camr”
@@ -44,4 +47,5 @@
    - Reads from .yaml file for various components of camera_info msg 
    - Publishes the camera_info message over topic ""/""
  - **subpub**
-   - 
+   - Subscribes to "/miro_scaledimage/left/image_raw" and "/miro_scaledimage/right/image_raw"
+   - Add the frame_id and
