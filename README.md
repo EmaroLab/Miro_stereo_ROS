@@ -14,8 +14,8 @@
 
 ### Using the MiRo Stereo Adaptor
 >This is a standalone ROS package that was created exclusively for MiRo stereo vision purpose.It has following executables and corresponding nodes:
-- **scaleimage_left.cpp
-- scaleimage_right.cpp
+- **scaleimage_left.cpp**
+- **scaleimage_right.cpp**
 - subpub.cpp
 - camera_info_publisher_left.py
 - camera_info_publisher_right.py**
@@ -25,4 +25,6 @@
 >Thus executables/nodes: 
  - **scaleimage_left and scaleimage_right**
    - Subcribes to “miro/rob01/platform/caml” and “miro/rob01/platform/camr”, resize/rescale the images and publishes the output over "/miro_scaledimage/left/image_raw" and "/miro_scaledimage/right/image_raw"
- - 
+ - **camera_info_publisher_left and camera_info_publisher_right**
+   - Reads from .yaml file for various components of camera_info msg and publishes the camera_info message over topic ""/""
+ - **subpub**
