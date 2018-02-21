@@ -1,3 +1,17 @@
+/**
+ * \state_publisher.cpp
+ * \brief A node to scale and republish the Image from Miro's left eye camera. 
+ * \authors John Thomas,Parag Khanna 
+ * \version 0.1
+ * \date  11 February 2018
+ * 
+ * \param[in] ...
+ * 
+ *   
+ * This node updates the joint state of MiRo robot model.
+ */
+
+
 #include <string>
 #include <ros/ros.h>
 #include <sensor_msgs/JointState.h>
