@@ -65,4 +65,6 @@ cd ~/mdk/bin/shared/
 
 `roslaunch miro_subpub subpub.launch left_camera_yaml:=scripts/left.yaml right_camera_yaml:=scripts/right.yaml`
 
-### Stereo_proc
+### [Stereo_image_proc](http://wiki.ros.org/stereo_image_proc) 
+> Commonly used open source package . This requires both camera_info and image topics for both the camera. It publishes the Disparity Image and the Point Cloud.
+
