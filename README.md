@@ -35,7 +35,7 @@ Verify by seeinf the Disparity image that pops up and point cloud in Rviz.
 
 7. Run Miro_urdf_launcher by using roslaunch:
 ```
-$!!!! input roslaunch!!!!
+$ roslaunch miro_urdf_launcher miro_urdf.launch
 ```
 Visualise the Robot model in Rviz.
 8. Run miro_pcl by roslaunch :
