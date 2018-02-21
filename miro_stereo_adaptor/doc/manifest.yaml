@@ -1,0 +1,21 @@
+actions: []
+authors: ''
+brief: ''
+bugtracker: ''
+depends:
+- nav_msgs
+- catkin
+- roscpp
+- std_msgs
+- sensor_msgs
+- image_transport
+- rospy
+- cv_bridge
+description: The subpub package
+license: BSD
+maintainers: Parag Khanna <paragkhanna1@gmail.com>
+msgs: []
+package_type: package
+repo_url: ''
+srvs: []
+url: ''
