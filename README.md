@@ -74,6 +74,8 @@ cd ~/mdk/bin/shared/
 `roslaunch miro_subpub subpub.launch left_camera_yaml:=scripts/left.yaml right_camera_yaml:=scripts/right.yaml`
 > Verify by running following commands: 
 ```
+rostopic echo /yaml/left/camera_info
+rostopic echo /stereo/left/camera_info/
 rosrun image_view image_view image:=/miro_scaledimage/left/image_raw
 rosrun image_view image_view image:=/stereo/left/image_raw
 ROS_NAMESPACE=stereo/left rosrun image_proc image_proc
@@ -81,5 +83,19 @@ rosrun image_view image_view image:=stereo/left/image_rect_color
 ```
 
 ### [Stereo_image_proc](http://wiki.ros.org/stereo_image_proc) 
-> Commonly used open source package. This requires both camera_info and image topics for both the cameras. It publishes the Disparity Image and the Point Cloud. **The messages shall be synchronized, recommended to not use approximate_sync for best performance**. We used the tutorial for setting best stereo parameters for the 
+> Commonly used open source package. This requires both camera_info and image topics for both the cameras. It publishes the Rectified images, Disparity Image and the Point Cloud. **The messages shall be synchronized, recommended to not use approximate_sync for best performance**. We used the [tutorial](http://wiki.ros.org/stereo_image_proc/Tutorials/ChoosingGoodStereoParameters) for setting best stereo parameters for the package using [dynamic_reconfigure](http://wiki.ros.org/dynamic_reconfigure). The stereo_image_proc node and dynamic_reconfigure can be run separately as described in the package summary. ****Furthur the output disparity image and rect images can be seen by using **stereo_view node of image_view**. Otherwise a custom launch file was included which launches all above assuming the namespace of the camera/images to be **stereo**.
+
+####Run by :
+```
+ROS_NAMESPACE=stereo rosrun stereo_image_proc stereo_image_proc
+rosrun image_view stereo_view stereo:=/stereo image:=image_rect_color
+rosrun rqt_reconfigure rqt_reconfigure
+```
+or 
+
+```
+roslaunch stereo_image_proc miro_stereo_image_proc.launch
+```
+
+
 
