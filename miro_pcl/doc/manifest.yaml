@@ -1,0 +1,19 @@
+actions: []
+authors: ''
+brief: ''
+bugtracker: ''
+depends:
+- catkin
+- roscpp
+- sensor_msgs
+- std_msgs
+- rospy
+- pcl_ros
+description: The miro_pcl package
+license: TODO
+maintainers: john04 <john04@todo.todo>
+msgs: []
+package_type: package
+repo_url: ''
+srvs: []
+url: ''
