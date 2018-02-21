@@ -159,7 +159,7 @@ roslaunch stereo_image_proc miro_stereo_image_proc.launch
 
 ###  miro_pcl
 
->  Another standalone package that is a collection of nodes implementiong PCL_filtering, PCL_downsampling and PCL_matching from [pcl](http://wiki.ros.org/pcl) Rospackage (Point Cloud Library). The codes have been adapted from the [git](https://github.com/AaronMR/Learning_ROS_for_Robotics_Programming_2nd_edition)  *Due to very narrow stereo_overlap leading to a narrow point cloud, the matching node does not work in desired way. Still it has been publihsed for furthur experiments*. A launch file has been provided which takes in an argument as the point_cloud topic. The nodes work in sequence: 
+>  Another standalone package that is a collection of nodes implementiong PCL_filtering, PCL_downsampling and PCL_matching from [pcl](http://wiki.ros.org/pcl) Rospackage (Point Cloud Library). These codes have been adapted from the [git](https://github.com/AaronMR/Learning_ROS_for_Robotics_Programming_2nd_edition).  *Due to very narrow stereo_overlap leading to a narrow point cloud, the matching node does not work in desired way. Still it has been publihsed for furthur experiments*. A launch file has been provided which takes in an argument as the point_cloud topic. The nodes work in sequence: 
 - pcl_filter_miro.cpp  
   - Takes in the argument as the point cloud topic name
   - Subscribes to it, applying pcl_filtering and publishes the output as "pcl_filtered_miro"
