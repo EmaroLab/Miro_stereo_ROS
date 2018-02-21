@@ -52,11 +52,13 @@ cd ~/mdk/bin/shared/
 ### miro_urdf_launcher
 > A standalone package using URDF file for Miro to visualise it as robot model in Rviz. A corresponding joint state-publisher node has been included as well which correponds to the joints of robot visualised in Rviz, broadcasting various tf like *miro_robot__miro_body__body*,*miro_robot__miro_head__eyelid_lh* etc which all can be seen in Rviz.
  
-> An URDF file has not been provided alongwith the Miro-MDK. The visualisation described on MiRo website in Gazebo is via a given SDF file. Thus a conversion was needed. This was done via a Ros_package!!!!!!!!!!!!!!
+> An URDF file has not been provided alongwith the Miro-MDK. The visualisation described on MiRo website in Gazebo is via a given SDF file. Thus a conversion was needed. This was done via the Ros_package [plysdf](http://wiki.ros.org/pysdf)
 
 #### Run By:
-` !!input the roslaunch!!`
- 
+```
+roslaunch miro_urdf_launcher miro_urdf.launch
+```
+
 **NOTE: The visualised MIRO in Rviz has not been linked to actual robot. The odometry information from robot will be used furthur to get the *miro_robot__miro_body__body* frame moving around as the robot moves**
 
 ### Using the MiRo Stereo Adaptor
