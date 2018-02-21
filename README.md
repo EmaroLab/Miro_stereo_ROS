@@ -60,4 +60,9 @@ cd ~/mdk/bin/shared/
 **NOTE**:
   1. **All republished topics are in "stereo" namespace. This is corresponding to the requirement of stereo_processing packages that need them in same namespace.**
   2. **As we would see ahead, the stereo_processing package used assumes the point cloud produced to be relative to a frame at left eye camera, (X Right, Y Down, Z out).** 
- > Run by : 
+ 
+ > ####Run by#### : ( a launch file has been provided for whole package, takes arguments as the path for .yaml files for left/right camera_info message files **put inside this package**
+`roslaunch miro_subpub subpub.launch left_camera_yaml:=scripts/left.yaml right_camera_yaml:=scripts/right.yaml`
+
+  
+### Stereo_proc
