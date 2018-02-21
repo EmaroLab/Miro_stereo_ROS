@@ -39,7 +39,7 @@ cd ~/mdk/bin/shared/
 >Furthur we need to synchronize all data. All the MiRo Messages are produced without a [header](http://docs.ros.org/lunar/api/std_msgs/html/msg/Header.html):frame_id, which is very important for stereo processing packages and visualisation packages/softwares. Similarily the time_stamps of images are not necessarily same. So, before Stereo-processing, we take all incoming messages(Scaled images, Camera_info and Odomerty messages) and republish them by giving the frame_id **stereo** to images and camera_info messages and same time stamp to all of them *(we copy the time stamp of the odometry message to distribute them over all others, thus giving priority to the Odometry. Same can also be done by giving the priority to one of the left/right image. Otherwise we can generate new time stamp corresponding to current time.)*
 
 > For visualisation we also need to broadcast 
->Thus executables/nodes: 
+> Thus executables/nodes: 
  - **scaleimage_left and scaleimage_right**
    - Subcribes to “miro/rob01/platform/caml” and “miro/rob01/platform/camr”
    - resize/rescale the images 
@@ -57,11 +57,12 @@ cd ~/mdk/bin/shared/
    - Read the odometry data, set the values for tf accordingly between global frame *map* and *miro_robot__miro_body__body* frame and broadcast it.
    - Also broadcast a static frame between the *stereo* frame and *miro_robot__miro_head__eyelid_lh* (as per the used stereo-processing package)
    - Re-publish the odometry message over : "/stereo/odom" topic.
+
 **NOTE**:
   1. **All republished topics are in "stereo" namespace. This is corresponding to the requirement of stereo_processing packages that need them in same namespace.**
   2. **As we would see ahead, the stereo_processing package used assumes the point cloud produced to be relative to a frame at left eye camera, (X Right, Y Down, Z out).** 
  
- > ####Run by#### : ( a launch file has been provided for whole package, takes arguments as the path for .yaml files for left/right camera_info message files **put inside this package**)
+####Run by#### : ( a launch file has been provided for whole package, takes arguments as the path for .yaml files for left/right camera_info message files **put inside this package**)
 
 `roslaunch miro_subpub subpub.launch left_camera_yaml:=scripts/left.yaml right_camera_yaml:=scripts/right.yaml`
 
