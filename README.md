@@ -2,19 +2,23 @@
 >Repository with ROS packages for implementation of Stereo vision on the MIRO robot. It can be used to generate a Point Cloud using the Stereo cameras of MiRo. Futhur it can be used to visualise the point cloud in the Rviz, while simulating the MiRo movement as it moves in the real world using its Odometry messages. 
 
 ## Quick use :
-1. All 4 folders: "miro_pcl", "miro_subpub", "miro_urdf_launcher" and "stereo_image_proc" are standalone ROS-packages, hence are to be placed in src folder of catkin workspace.
+1. All 4 folders: "miro_pcl", "miro_stereo_adaptor", "miro_urdf_launcher" and "stereo_image_proc" are standalone ROS-packages, hence are to be placed in src folder of catkin workspace.
 2. Do catkin_make
 3. Establish connection with MiRo, verify by :
 ```
-cd ~/mdk/bin/shared/
-./miro_ros_client_gui.py robot=rob01`
+$ cd ~/mdk/bin/shared/
+$ ./miro_ros_client_gui.py robot=rob01`
 ```
 4. Run Pyhton script for getting Odometry messages from inside same directory as above:
 ```
-cd ~/mdk/bin/shared/
-./miro_get_odom.py robot=rob01
+$ cd ~/mdk/bin/shared/
+$ ./miro_get_odom.py robot=rob01
 ```
-5. 
+5. Run Miro_stereo_adaptor by using roslaunch:
+```
+$roslaunch miro_stereo_adaptor subpub.launch left_camera_yaml:=scripts/left.yaml right_camera_yaml:=scripts/right.yaml
+```
+6. Run Miro 
 
 ### Start working with MiRo
 >To work with MiRo, we need to prepare our workstation for MiRo, via installing the MIRO Developer Kit(MDK) and configuring the installation (ROS and/or Gazebo) for use with MiRo.
@@ -96,7 +100,9 @@ cd ~/mdk/bin/shared/
 #### Run by : 
 ( a launch file has been provided for whole package, takes arguments as the path for .yaml files for left/right camera_info message files **put inside this package**)
 
-`roslaunch miro_subpub subpub.launch left_camera_yaml:=scripts/left.yaml right_camera_yaml:=scripts/right.yaml`
+```
+roslaunch miro_stereo_adaptor subpub.launch left_camera_yaml:=scripts/left.yaml right_camera_yaml:=scripts/right.yaml
+```
 > Verify by running following commands: 
 ```
 rostopic echo /yaml/left/camera_info
