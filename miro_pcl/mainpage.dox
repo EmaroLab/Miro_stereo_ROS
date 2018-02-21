@@ -1,0 +1,12 @@
+/**
+\mainpage
+\htmlinclude manifest.html
+
+\b miro_pcl is a modification to the standard ROS package for pcl.
+It subscribes to the point cloud obtained from miro and performs basic
+steps like filtering and downsampling. Additionally it also tries to 
+stitch multiple point clouds using Registration principle.
+
+*/
+
+

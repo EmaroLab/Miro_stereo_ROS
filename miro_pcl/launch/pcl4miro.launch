@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="topic_points2" /> 
+  <node name="pcl_filter_miro" pkg="miro_pcl" type="pcl_filter_miro" args="$(arg topic_points2)" output="screen" />
+  <node name="pcl_downsampling" pkg="miro_pcl" type="pcl_downsampling" />
+  <node name="pcl_matching_miro" pkg="miro_pcl" type="pcl_matching_miro"/>
+        
+  <!-- declare arg to be passed in -->
+  
+</launch>
