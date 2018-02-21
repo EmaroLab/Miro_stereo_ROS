@@ -8,7 +8,7 @@
 - If everything goes as desired, once roscore is run in the ROS Environment in our workstation we finally have a Rosnode running which corresponds to various interfaces of MiRo:Standard(new), Platform, Core and Bridge. We will be able to see various *Topics* related to MiRo in `rostopic list`
 - We can verify this by running the example python script in the mdk directory created while preparing the workstation.
   - `cd ~/mdk/bin/shared/`
-  - `./miro_ros_client_gui.py robot=rob01`
+`./miro_ros_client_gui.py robot=rob01`
 
 >We would be using the [platform interface](https://consequential.bitbucket.io/Technical_Interfaces_Platform_Interface.html) of the MiRo in this approach.
 
