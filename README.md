@@ -55,7 +55,7 @@
    - Read the odometry data, set the values for tf accordingly between global frame *map* and *miro_robot__miro_body__body* frame and broadcast it.
    - Also broadcast a static frame between the *stereo* frame and *miro_robot__miro_head__eyelid_lh* (as per the used stereo-processing package)
    - Re-publish the odometry message over : "/stereo/odom" topic.
-**NOTE:
-  1. All republished topics are in "stereo" namespace. This is corresponding to the requirement of stereo_processing packages that need them in same namespace.
-  2. As we would see ahead, the stereo_processing package used assumes the point cloud produced to be relative to a frame at left eye camera, (X Right, Y Down, Z out). 
+**NOTE**:
+  1. **All republished topics are in "stereo" namespace. This is corresponding to the requirement of stereo_processing packages that need them in same namespace.
+  2. As we would see ahead, the stereo_processing package used assumes the point cloud produced to be relative to a frame at left eye camera, (X Right, Y Down, Z out).** 
 
