@@ -174,4 +174,6 @@ roslaunch stereo_image_proc miro_stereo_image_proc.launch
 `roslaunch miro_pcl pcl4miro.launch topic_points2:="/stereo/points2"`
 
 The point clouds can be visualised in Rviz.
+
+Video link : https://drive.google.com/open?id=1rxkzOiZXYNqdtwaGSqynoenknItgD97j
  
