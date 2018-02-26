@@ -3,7 +3,7 @@
 
 ## Quick use :
 
-1. All 4 folders: "miro_pcl", "miro_stereo_adaptor", "miro_urdf_launcher" and "stereo_image_proc" are standalone ROS-packages, hence are to be placed in src folder of catkin workspace.
+1. All 4 folders: "miro_pcl", "miro_stereo_adapter", "miro_urdf_launcher" and "stereo_image_proc" are standalone ROS-packages, hence are to be placed in src folder of catkin workspace.
 2. Do catkin_make
 3. Establish connection with MiRo, verify by :
 ```
@@ -15,9 +15,9 @@ $ ./miro_ros_client_gui.py robot=rob01`
 $ cd ~/mdk/bin/shared/
 $ ./miro_get_odom.py robot=rob01
 ```
-5. Run Miro_stereo_adaptor by using roslaunch:
+5. Run Miro_stereo_adapter by using roslaunch:
 ```
-$ roslaunch miro_stereo_adaptor subpub.launch left_camera_yaml:=scripts/left.yaml right_camera_yaml:=scripts/right.yaml
+$ roslaunch miro_stereo_adapter subpub.launch left_camera_yaml:=scripts/left.yaml right_camera_yaml:=scripts/right.yaml
 ```
 Verify by: 
 ```
@@ -87,7 +87,7 @@ roslaunch miro_urdf_launcher miro_urdf.launch
  
 **NOTE: The visualised MIRO in Rviz has not been linked to actual robot. The odometry information from robot will be used furthur to get the *miro_robot__miro_body__body* frame moving around as the robot moves**
 
-### Using the MiRo Stereo Adaptor
+### Using the MiRo Stereo Adapter
 >This is a standalone ROS package that was created exclusively for MiRo stereo vision purpose.It has following executables and corresponding nodes:
 - **scaleimage_left.cpp**
 - **scaleimage_right.cpp**
@@ -130,7 +130,7 @@ roslaunch miro_urdf_launcher miro_urdf.launch
 ( a launch file has been provided for whole package, takes arguments as the path for .yaml files for left/right camera_info message files **put inside this package**)
 
 ```
-roslaunch miro_stereo_adaptor subpub.launch left_camera_yaml:=scripts/left.yaml right_camera_yaml:=scripts/right.yaml
+roslaunch miro_stereo_adapter subpub.launch left_camera_yaml:=scripts/left.yaml right_camera_yaml:=scripts/right.yaml
 ```
 > Verify by running following commands: 
 ```
