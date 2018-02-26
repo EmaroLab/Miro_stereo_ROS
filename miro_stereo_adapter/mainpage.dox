@@ -1,0 +1,11 @@
+/**
+\mainpage
+\htmlinclude manifest.html
+
+\b miro_stereo_adapter 
+
+ 
+Acts as Adapter for data publised by MIRO_mdk over ROS_Master, making it synchronized and available for furthur processing, especially for stereo vision purposes.
+
+
+*/

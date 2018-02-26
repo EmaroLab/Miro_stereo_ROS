@@ -1,0 +1,14 @@
+/**
+\mainpage
+\htmlinclude manifest.html
+
+\b Miro_stereo_adaptor 
+
+ 
+Acts as Adaptor data publised by MIRO_mdk over ROS_Master
+-->
+
+-->
+
+
+*/
