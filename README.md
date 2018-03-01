@@ -1,7 +1,7 @@
 # Miro_stereo_ROS
 >Repository with ROS packages for implementation of Stereo vision on the MIRO robot. It can be used to generate a Point Cloud using the Stereo cameras of MiRo. Futhur it can be used to visualise the point cloud in the Rviz, while simulating the MiRo movement as it moves in the real world using its Odometry messages. 
 
-Video link of Output : https://drive.google.com/open?id=1rxkzOiZXYNqdtwaGSqynoenknItgD97j
+Video link of Output Point Cloud in Rviz with Miro movement: https://drive.google.com/open?id=1rxkzOiZXYNqdtwaGSqynoenknItgD97j
 
 ## Quick use :
 
