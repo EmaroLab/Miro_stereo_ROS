@@ -1,6 +1,8 @@
 # Miro_stereo_ROS
 >Repository with ROS packages for implementation of Stereo vision on the MIRO robot. It can be used to generate a Point Cloud using the Stereo cameras of MiRo. Futhur it can be used to visualise the point cloud in the Rviz, while simulating the MiRo movement as it moves in the real world using its Odometry messages. 
 
+Video link of Output : https://drive.google.com/open?id=1rxkzOiZXYNqdtwaGSqynoenknItgD97j
+
 ## Quick use :
 
 1. All 4 folders: "miro_pcl", "miro_stereo_adapter", "miro_urdf_launcher" and "stereo_image_proc" are standalone ROS-packages, hence are to be placed in src folder of catkin workspace.
@@ -175,5 +177,5 @@ roslaunch stereo_image_proc miro_stereo_image_proc.launch
 
 The point clouds can be visualised in Rviz.
 
-Video link : https://drive.google.com/open?id=1rxkzOiZXYNqdtwaGSqynoenknItgD97j
+
  
